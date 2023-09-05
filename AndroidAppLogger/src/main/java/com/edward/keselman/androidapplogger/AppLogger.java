@@ -76,17 +76,37 @@ public class AppLogger {
         }
     }
 
-    public static void info(final Context context, final @NonNull BaseLog info, CompletionHandler completionHandler) throws IOException {
-        String message = addBugsnagUUID(context, addDeviceUUID(context, info.toString()));
+    public static void log(final Context context, final @NonNull BaseLog log) throws IOException {
+        String message = addBugsnagUUID(context, addDeviceUUID(context, log.toString()));
         writeToLogFile(context, message);
+    }
+
+    public static void log(final Context context, final @NonNull BaseLog log, CompletionHandler completionHandler) throws IOException {
+        log(context, log);
         completionHandler.onComplete();
     }
 
-    public static void error(Context context, @NonNull ErrorLog errorLog, CompletionHandler completionHandler) throws IOException {
-        String message = addBugsnagUUID(context,addDeviceUUID(context, errorLog.toString()));
-        writeToLogFile(context, message);
-        completionHandler.onComplete();
-    }
+//    public static void info(final Context context, final @NonNull BaseLog info) throws IOException {
+//        String message = addBugsnagUUID(context, addDeviceUUID(context, info.toString()));
+//        writeToLogFile(context, message);
+//    }
+//
+//    public static void info(final Context context, final @NonNull BaseLog info, CompletionHandler completionHandler) throws IOException {
+//        String message = addBugsnagUUID(context, addDeviceUUID(context, info.toString()));
+//        writeToLogFile(context, message);
+//        completionHandler.onComplete();
+//    }
+//
+//    public static void error(Context context, @NonNull ErrorLog errorLog) throws IOException {
+//        String message = addBugsnagUUID(context,addDeviceUUID(context, errorLog.toString()));
+//        writeToLogFile(context, message);
+//    }
+//
+//    public static void error(Context context, @NonNull ErrorLog errorLog, CompletionHandler completionHandler) throws IOException {
+//        String message = addBugsnagUUID(context,addDeviceUUID(context, errorLog.toString()));
+//        writeToLogFile(context, message);
+//        completionHandler.onComplete();
+//    }
 
     private static String addDeviceUUID(Context context, String logMessage) {
         String uuid = getDeviceUUD(context);
