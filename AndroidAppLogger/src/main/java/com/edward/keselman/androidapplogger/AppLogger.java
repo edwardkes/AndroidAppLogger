@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 
 import com.edward.keselman.androidapplogger.interfaces.CompletionHandler;
 import com.edward.keselman.androidapplogger.types.modules.BaseLog;
-import com.edward.keselman.androidapplogger.types.modules.ErrorLog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,11 +28,8 @@ public class AppLogger {
         File fileToDelete = new File(getFilePath(context));
 
         if (fileToDelete.exists()) {
-            if (fileToDelete.delete()) {
-                return true; // File deleted successfully
-            } else {
-                return false; // Failed to delete the file
-            }
+            // Failed to delete the file
+            return fileToDelete.delete(); // File deleted successfully
         } else {
             return false; // File doesn't exist
         }
@@ -85,28 +81,6 @@ public class AppLogger {
         log(context, log);
         completionHandler.onComplete();
     }
-
-//    public static void info(final Context context, final @NonNull BaseLog info) throws IOException {
-//        String message = addBugsnagUUID(context, addDeviceUUID(context, info.toString()));
-//        writeToLogFile(context, message);
-//    }
-//
-//    public static void info(final Context context, final @NonNull BaseLog info, CompletionHandler completionHandler) throws IOException {
-//        String message = addBugsnagUUID(context, addDeviceUUID(context, info.toString()));
-//        writeToLogFile(context, message);
-//        completionHandler.onComplete();
-//    }
-//
-//    public static void error(Context context, @NonNull ErrorLog errorLog) throws IOException {
-//        String message = addBugsnagUUID(context,addDeviceUUID(context, errorLog.toString()));
-//        writeToLogFile(context, message);
-//    }
-//
-//    public static void error(Context context, @NonNull ErrorLog errorLog, CompletionHandler completionHandler) throws IOException {
-//        String message = addBugsnagUUID(context,addDeviceUUID(context, errorLog.toString()));
-//        writeToLogFile(context, message);
-//        completionHandler.onComplete();
-//    }
 
     private static String addDeviceUUID(Context context, String logMessage) {
         String uuid = getDeviceUUD(context);
